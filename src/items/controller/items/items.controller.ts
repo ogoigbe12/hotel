@@ -23,6 +23,7 @@ export class ItemsController {
   @UsePipes(new ValidationPipe())
   async createNew(@Body() itemData: itemsDto) {
     const newItem = await this.itemsService.createItem(itemData);
+    console.log('newItem');
     if (newItem) return { msg: 'item created' };
     return new HttpException('item already exit', HttpStatus.BAD_REQUEST);
   }

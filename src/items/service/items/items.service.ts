@@ -2,13 +2,15 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FilterItem } from 'src/items/Dto/filter.item.dto';
 import { itemsDto } from 'src/items/Dto/items.dto';
-import { Items } from 'src/Typeorm/items.entities';
+import { Items } from 'src/Typeorm/item.entity';
+// import { ItemsEntity } from 'src/Typeorm/items.entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ItemsService {
   constructor(
-    @InjectRepository(Items) private itemRepository: Repository<Items>,
+    @InjectRepository(Items)
+    private itemRepository: Repository<Items>,
   ) {}
   async createItem(itemDetails: itemsDto) {
     const newItem = await this.itemRepository.findOneBy({
