@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { CustomerModule } from './customer/customer.module';
 import { Customer } from './Typeorm/customer.entities';
 import { ItemsModule } from './items/items.module';
+import { Items } from './Typeorm/items.entities';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { ItemsModule } from './items/items.module';
       username: process.env.USER,
       password: process.env.PASSWORD,
       database: process.env.DB,
-      entities: [User, Customer],
+      entities: [User, Customer, Items],
       synchronize: true,
     }),
     UserModule,
