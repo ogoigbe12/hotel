@@ -41,7 +41,7 @@ export class CustomerController {
   async getAllCustomer() {
     const allCustomer = this.customerService.getCustomer();
     if (allCustomer) return allCustomer;
-    throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
+    throw new HttpException('Customer not found', HttpStatus.NOT_FOUND);
   }
   @Get(':id')
   async getCustomerById(@Param('id') id: number) {

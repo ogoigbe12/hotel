@@ -2,27 +2,36 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FilterItem } from 'src/items/Dto/filter.item.dto';
 import { itemsDto } from 'src/items/Dto/items.dto';
-import { Items } from 'src/Typeorm/item.entity';
+import { ItemsCreate } from 'src/typeorm/items.entities';
 // import { ItemsEntity } from 'src/Typeorm/items.entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ItemsService {
   constructor(
-    @InjectRepository(Items)
-    private itemRepository: Repository<Items>,
+    @InjectRepository(ItemsCreate)
+    private itemRepository: Repository<ItemsCreate>,
   ) {}
-  async createItem(itemDetails: itemsDto) {
-    const newItem = await this.itemRepository.findOneBy({
-      itemName: itemDetails.itemName,
+  async itemCreate(detailItem: itemsDto) {
+    const item = await this.itemRepository.findOneBy({
+      itemName: detailItem.itemName,
     });
-    if (!newItem) {
-      const itemToSave = await this.itemRepository.save(itemDetails);
+    if (!item) {
+      const itemToSave = await this.itemRepository.save(detailItem);
       return itemToSave;
     }
   }
-  async filterItem(filterItemDto: FilterItem): Promise<Items[]> {
-    const { itemName, search } = filterItemDto;
+  async itemUpdated(id: number, valideteItem: itemsDto) {
+    const newExpense = await this.itemRepository.update(
+      {
+        id: id,
+      },
+      valideteItem,
+    );
+    return newExpense;
+  }
+  async getFilter(filterDTO: FilterItem): Promise<ItemsCreate[]> {
+    const { itemName, search } = filterDTO;
     let items = await this.getItem();
 
     if (search) {
@@ -34,12 +43,13 @@ export class ItemsService {
     if (itemName) {
       items = items.filter((item) => item.itemName === itemName);
     }
+
     return items;
   }
   async getItem() {
     return this.itemRepository.find({});
   }
-  async getItemById(id: number): Promise<Items> {
+  async getItemById(id: number): Promise<ItemsCreate> {
     return await this.itemRepository.findOneBy({ id: id });
   }
   async deleteItem(id: number) {

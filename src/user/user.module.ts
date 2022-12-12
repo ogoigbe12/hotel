@@ -8,7 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserService } from './service/user/user.service';
 import { UserController } from './controller/user/user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/Typeorm/user.entities';
+import { User } from 'src/typeorm/user.entities';
 import { UserMiddleware } from './middleware/user/user.middleware';
 
 @Module({

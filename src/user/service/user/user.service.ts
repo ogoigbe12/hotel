@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/Typeorm/user.entities';
+import { User } from 'src/typeorm/user.entities';
 import { UserDto } from 'src/user/Dtos/user.dto';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -11,7 +11,7 @@ export class UserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     private jwtService: JwtService,
-  ) {}
+  ) { }
   async createUser(userDetails: UserDto) {
     const findEamil = await this.userRepository.findBy({
       email: userDetails.email,

@@ -1,19 +1,19 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Room {
+export class orderCreate {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
-  customerName: string;
+  itemType: string;
 
   @Column()
-  address: string;
-
-  @Column('bigint')
-  contactNo: number;
+  itemName: string;
 
   @Column()
-  gender: string;
+  itemCost: number;
+
+  @Column()
+  itemDetails: string;
 }

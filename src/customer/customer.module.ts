@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Customer } from 'src/Typeorm/customer.entities';
+import { Customer } from 'src/typeorm/customer.entities';
 import { CustomerController } from './controller/customer/customer.controller';
 import { CustomerService } from './service/customer/customer.service';
 
@@ -9,4 +9,4 @@ import { CustomerService } from './service/customer/customer.service';
   controllers: [CustomerController],
   providers: [CustomerService],
 })
-export class CustomerModule {}
+export class CustomerModule { }

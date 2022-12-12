@@ -10,6 +10,5 @@ export class itemsDto {
   @IsNotEmpty()
   itemCost: number;
 
-  @IsNotEmpty()
   itemDetails: string;
 }

@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CustomerDto } from 'src/customer/Dto/customer.dto';
-import { Customer } from 'src/Typeorm/customer.entities';
+import { Customer } from 'src/typeorm/customer.entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class CustomerService {
   constructor(
     @InjectRepository(Customer)
     private customerRepository: Repository<Customer>,
-  ) {}
+  ) { }
   async createCustomer(customerDetails: CustomerDto) {
     const newCustomer = await this.customerRepository.findOneBy({
       customerName: customerDetails.customerName,

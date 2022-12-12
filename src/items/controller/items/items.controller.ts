@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  Patch,
   Post,
   Query,
   UsePipes,
@@ -19,19 +20,25 @@ import { ItemsService } from 'src/items/service/items/items.service';
 export class ItemsController {
   constructor(private itemsService: ItemsService) {}
 
-  @Post('create')
+  @Post('new')
   @UsePipes(new ValidationPipe())
-  async createNew(@Body() itemData: itemsDto) {
-    const newItem = await this.itemsService.createItem(itemData);
-    console.log('newItem');
-    if (newItem) return { msg: 'item created' };
+  async newItem(@Body() itemData: itemsDto) {
+    const items = await this.itemsService.itemCreate(itemData);
+    if (items) return { msg: 'item created' };
     return new HttpException('item already exit', HttpStatus.BAD_REQUEST);
   }
+  @Patch(':id')
+  async expensePatched(@Param('id') id: number, @Body() expenseData: itemsDto) {
+    const updated = await this.itemsService.itemUpdated(id, expenseData);
+    if (!updated)
+      throw new HttpException('expense does not exits', HttpStatus.BAD_REQUEST);
+    return updated;
+  }
   @Get()
-  async getAllItem(@Query() filterItemDto: FilterItem) {
-    if (Object.keys(filterItemDto).length) {
-      const filterItem = await this.itemsService.filterItem(filterItemDto);
-      return filterItem;
+  async getItem(@Query() filterDto: FilterItem) {
+    if (filterDto) {
+      const filter = await this.itemsService.getFilter(filterDto);
+      return filter;
     } else {
       const allItem = await this.itemsService.getItem();
       return allItem;
