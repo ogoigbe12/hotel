@@ -2,7 +2,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NextFunction, Request, Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/typeorm/user.entities';
+import { Employee } from 'src/typeorm/employee.entities';
 import { Repository } from 'typeorm';
 declare module 'express-serve-static-core' {
   interface Request {
@@ -11,11 +11,11 @@ declare module 'express-serve-static-core' {
 }
 
 @Injectable()
-export class UserMiddleware implements NestMiddleware {
+export class EmployeeMiddleware implements NestMiddleware {
   constructor(
-    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Employee) private userRepository: Repository<Employee>,
     private jwtService: JwtService,
-  ) { }
+  ) {}
   async use(req: Request, res: Response, next: NextFunction) {
     // console.log(req.baseUrl, req.method);
 

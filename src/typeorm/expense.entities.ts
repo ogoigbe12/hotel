@@ -5,7 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from './user.entities';
+import { Employee } from './employee.entities';
 
 @Entity()
 export class expenseCreate {
@@ -28,7 +28,7 @@ export class expenseCreate {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: number;
 
-  @OneToOne(() => User)
+  @OneToOne(() => Employee)
   @JoinColumn()
-  users: User;
+  employees: Employee;
 }

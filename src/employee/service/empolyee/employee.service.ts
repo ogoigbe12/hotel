@@ -1,18 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/typeorm/user.entities';
-import { UserDto } from 'src/user/Dtos/user.dto';
+import { Employee } from 'src/typeorm/employee.entities';
+import { EmployeeDto } from 'src/employee/Dtos/employee.dto';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class UserService {
+export class EmployeeService {
   constructor(
-    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Employee) private userRepository: Repository<Employee>,
     private jwtService: JwtService,
-  ) { }
-  async createUser(userDetails: UserDto) {
+  ) {}
+  async createUser(userDetails: EmployeeDto) {
     const findEamil = await this.userRepository.findBy({
       email: userDetails.email,
     });
@@ -23,7 +23,7 @@ export class UserService {
       return await this.userRepository.save(userDetails);
   }
 
-  async login(userDetails: UserDto) {
+  async login(userDetails: EmployeeDto) {
     const userLogin = await this.userRepository.findOneBy({
       email: userDetails.email,
     });
@@ -41,12 +41,15 @@ export class UserService {
       }
       return { err: 'incorrect password', status: HttpStatus.BAD_REQUEST };
     }
-    return { err: 'user with email not found', status: HttpStatus.NOT_FOUND };
+    return {
+      err: 'employee with email not found',
+      status: HttpStatus.NOT_FOUND,
+    };
   }
   async getUsers() {
     return await this.userRepository.find({});
   }
-  async getUserById(id: number): Promise<User> {
+  async getUserById(id: number): Promise<Employee> {
     return await this.userRepository.findOneBy({ id: id });
   }
 

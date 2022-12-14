@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class User {
+export class Employee {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
@@ -14,6 +14,6 @@ export class User {
   @Column()
   password: string;
 
-  //   @Column()
-  //   creatttedAt: Date;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: number;
 }

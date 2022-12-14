@@ -10,27 +10,27 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { UserDto } from 'src/user/Dtos/user.dto';
-import { UserService } from 'src/user/service/user/user.service';
+import { EmployeeDto } from 'src/employee/Dtos/employee.dto';
+import { EmployeeService } from 'src/employee/service/empolyee/employee.service';
 
-@Controller('user')
-export class UserController {
-  constructor(private userService: UserService) {}
+@Controller('employee')
+export class EmployeeController {
+  constructor(private employeeService: EmployeeService) {}
   @Get()
   async getUser() {
-    const users = await this.userService.getUsers();
+    const users = await this.employeeService.getUsers();
     if (users.length > 0) return users;
     throw new HttpException('user not found', HttpStatus.NOT_FOUND);
   }
   @Get(':id')
   async getuserById(@Param('id') id: number) {
-    const getId = await this.userService.getUserById(id);
+    const getId = await this.employeeService.getUserById(id);
     if (!getId) throw new HttpException('user not found', HttpStatus.NOT_FOUND);
     return getId;
   }
   @Delete(':id')
   async deleteUser(@Param('id') id: number) {
-    const deleteUser = await this.userService.DeleteUser(id);
+    const deleteUser = await this.employeeService.DeleteUser(id);
     if (deleteUser) return deleteUser;
     throw new HttpException(
       'you cannot perform this action',
@@ -39,8 +39,8 @@ export class UserController {
   }
   @Post('signup')
   @UsePipes(new ValidationPipe())
-  async signup(@Body() userDto: UserDto) {
-    const newUser = await this.userService.createUser(userDto);
+  async signup(@Body() employeeDto: EmployeeDto) {
+    const newUser = await this.employeeService.createUser(employeeDto);
     if (newUser) return { msg: 'Account created', redirect: '/login' };
     return new HttpException(
       'user with email already exists',
@@ -48,8 +48,8 @@ export class UserController {
     );
   }
   @Post('login')
-  async login(@Body() userDto: UserDto) {
-    const newLogin = await this.userService.login(userDto);
+  async login(@Body() employeeDto: EmployeeDto) {
+    const newLogin = await this.employeeService.login(employeeDto);
     if (newLogin.token) return { msg: 'user signed in', token: newLogin.token };
     if (newLogin.err) throw new HttpException(newLogin.err, newLogin.status);
   }
