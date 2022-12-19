@@ -7,8 +7,10 @@ export class EmployeeDto {
   @IsNotEmpty()
   email: string;
 
+  // @IsNotEmpty()
+  // expensesId: number;
+
   @IsNotEmpty()
   @MinLength(5)
-  // @IsNotEmptyObject()
   password: string;
 }

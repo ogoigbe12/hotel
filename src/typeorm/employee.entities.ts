@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { expenseCreate } from './expense.entities';
 
 @Entity()
 export class Employee {
@@ -13,6 +14,9 @@ export class Employee {
 
   @Column()
   password: string;
+
+  @OneToMany(() => expenseCreate, (expenses) => expenses.employee)
+  expenses: expenseCreate[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: number;

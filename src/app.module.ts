@@ -12,6 +12,13 @@ import { expenseCreate } from './typeorm/expense.entities';
 import { OrderModule } from './order/order.module';
 import { orderCreate } from './typeorm/order.entities';
 import { ReminderModule } from './reminder/reminder.module';
+import { BookingModule } from './booking/booking.module';
+import { RoomModule } from './room/room.module';
+import { RoomtypeModule } from './roomtype/roomtype.module';
+import { Booking } from './typeorm/booking.entities';
+import { Room } from './typeorm/room.entities';
+import { roomType } from './typeorm/roomtype.entities';
+import { Reminder } from './typeorm/reminder.entities';
 
 @Module({
   imports: [
@@ -23,7 +30,17 @@ import { ReminderModule } from './reminder/reminder.module';
       username: process.env.USER,
       password: process.env.PASSWORD,
       database: process.env.DB,
-      entities: [Employee, Customer, ItemsCreate, expenseCreate, orderCreate],
+      entities: [
+        Employee,
+        Customer,
+        ItemsCreate,
+        expenseCreate,
+        orderCreate,
+        Booking,
+        Room,
+        roomType,
+        Reminder,
+      ],
       synchronize: true,
     }),
     EmployeeModule,
@@ -32,6 +49,9 @@ import { ReminderModule } from './reminder/reminder.module';
     ExpenseModule,
     OrderModule,
     ReminderModule,
+    BookingModule,
+    RoomModule,
+    RoomtypeModule,
   ],
   controllers: [],
   providers: [],

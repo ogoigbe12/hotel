@@ -1,18 +1,15 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class orderCreate {
-  @PrimaryGeneratedColumn('uuid')
+export class Room {
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('date')
-  orderDate: string;
+  @Column('int')
+  roomNumber: number;
 
-  @Column('float')
-  Qty: string;
-
-  @Column('float')
-  Cost: string;
+  @Column('text')
+  description: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: number;

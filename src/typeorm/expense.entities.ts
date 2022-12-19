@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Employee } from './employee.entities';
 
 @Entity()
@@ -28,7 +22,6 @@ export class expenseCreate {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: number;
 
-  @OneToOne(() => Employee)
-  @JoinColumn()
-  employees: Employee;
+  @ManyToOne(() => Employee, (employee) => employee.expenses)
+  employee: Employee;
 }

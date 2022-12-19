@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { Employee } from 'src/typeorm/employee.entities';
 
 export class expensesDto {
   @IsNotEmpty()
@@ -11,4 +12,6 @@ export class expensesDto {
 
   @IsNotEmpty()
   expenseAmount: number;
+
+  employee: Employee;
 }

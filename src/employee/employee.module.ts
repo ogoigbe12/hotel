@@ -10,10 +10,11 @@ import { EmployeeController } from './controller/employee/employee.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Employee } from 'src/typeorm/employee.entities';
 import { EmployeeMiddleware } from './middleware/user/employee.middleware';
+import { expenseCreate } from 'src/typeorm/expense.entities';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Employee]),
+    TypeOrmModule.forFeature([Employee, expenseCreate]),
     JwtModule.register({
       secret: 'process.env.SECRET',
       signOptions: { expiresIn: '7d' },

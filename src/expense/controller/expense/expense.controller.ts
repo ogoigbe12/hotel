@@ -19,8 +19,8 @@ export class ExpenseController {
   constructor(private expenseService: ExpenseService) {}
   @Post('create')
   @UsePipes(new ValidationPipe())
-  async newExpense(@Body() expenseData: expensesDto) {
-    const expense = await this.expenseService.expenseCreated(expenseData);
+  async newExpense(@Param('id') id: number, @Body() expenseData: expensesDto) {
+    const expense = await this.expenseService.expenseCreated(id, expenseData);
     if (expense) return { msg: 'expense created' };
     return new HttpException('expense already exits', HttpStatus.BAD_REQUEST);
   }
@@ -51,5 +51,15 @@ export class ExpenseController {
   async deleteExpense(@Param('id') id: number) {
     const deleted = await this.expenseService.deleteExpense(id);
     return deleted;
+  }
+  @Post(':id/employee')
+  @UsePipes(new ValidationPipe())
+  async expenseCreated(
+    @Body() expenseData: expensesDto,
+    @Param('id') id: number,
+  ) {
+    const expense = await this.expenseService.createExpense(id, expenseData);
+    if (expense) return { msg: 'relation created' };
+    throw new HttpException('relation does not exit', HttpStatus.BAD_REQUEST);
   }
 }
