@@ -23,16 +23,23 @@ export class ExpenseService {
     }
   }
   async updateExpense(id: number, expenseDetails: expensesDto) {
-    const newExpense = await this.expenseRepository.update(
-      {
-        id: id,
-      },
-      expenseDetails,
-    );
-    return newExpense;
+    const newExpense = await this.expenseRepository.findOne({
+      where: { id: id },
+      relations: { employee: true },
+    });
+    if (newExpense) {
+      return this.expenseRepository.update(
+        { id: id },
+        {
+          expenseType: expenseDetails.expenseType,
+          expenseName: expenseDetails.expenseName,
+          expenseAmount: expenseDetails.expenseAmount,
+        },
+      );
+    }
   }
   async getExpense() {
-    return this.expenseRepository.find({});
+    return this.expenseRepository.find({ relations: ['employee'] });
   }
   async getExpenseById(id: number): Promise<expenseCreate> {
     return await this.expenseRepository.findOne({
@@ -41,7 +48,10 @@ export class ExpenseService {
     });
   }
   async deleteExpense(id: number) {
-    const deleteOne = await this.expenseRepository.findOneBy({ id: id });
+    const deleteOne = await this.expenseRepository.findOne({
+      where: { id: id },
+      relations: { employee: true },
+    });
     if (!deleteOne)
       return new HttpException(
         'expense with id does not exit',

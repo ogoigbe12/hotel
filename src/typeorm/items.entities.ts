@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { orderCreate } from './order.entities';
 
 @Entity()
 export class ItemsCreate {
@@ -19,4 +20,7 @@ export class ItemsCreate {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: number;
+
+  @OneToMany(() => orderCreate, (order) => order.items)
+  order: orderCreate[];
 }

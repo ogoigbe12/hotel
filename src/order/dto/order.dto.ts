@@ -1,12 +1,15 @@
 import { IsNotEmpty } from 'class-validator';
+import { ItemsCreate } from 'src/typeorm/items.entities';
 
 export class orderDto {
   @IsNotEmpty()
-  orderDate: string;
+  orderDate: number;
 
   @IsNotEmpty()
   Qty: string;
 
   @IsNotEmpty()
-  cost: string;
+  Cost: string;
+
+  items: ItemsCreate;
 }

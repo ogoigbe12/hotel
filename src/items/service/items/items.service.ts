@@ -47,10 +47,13 @@ export class ItemsService {
     return items;
   }
   async getItem() {
-    return this.itemRepository.find({});
+    return this.itemRepository.find({ relations: ['order'] });
   }
   async getItemById(id: number): Promise<ItemsCreate> {
-    return await this.itemRepository.findOneBy({ id: id });
+    return await this.itemRepository.findOne({
+      where: { id: id },
+      relations: { order: true },
+    });
   }
   async deleteItem(id: number) {
     const deleteOne = await this.itemRepository.findOneBy({ id: id });

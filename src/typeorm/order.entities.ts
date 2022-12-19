@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { ItemsCreate } from './items.entities';
 
 @Entity()
 export class orderCreate {
@@ -6,7 +7,7 @@ export class orderCreate {
   id: number;
 
   @Column('date')
-  orderDate: string;
+  orderDate: number;
 
   @Column('float')
   Qty: string;
@@ -16,4 +17,7 @@ export class orderCreate {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: number;
+
+  @ManyToOne(() => ItemsCreate, (items) => items.order)
+  items: ItemsCreate;
 }
