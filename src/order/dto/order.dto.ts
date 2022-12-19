@@ -5,7 +5,6 @@ export class orderDto {
   @IsNotEmpty()
   orderDate: number;
 
-  @IsNotEmpty()
   Qty: string;
 
   @IsNotEmpty()
