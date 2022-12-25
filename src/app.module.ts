@@ -19,6 +19,7 @@ import { Booking } from './typeorm/booking.entities';
 import { Room } from './typeorm/room.entities';
 import { roomType } from './typeorm/roomtype.entities';
 import { Reminder } from './typeorm/reminder.entities';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { Reminder } from './typeorm/reminder.entities';
       username: process.env.USER,
       password: process.env.PASSWORD,
       database: process.env.DB,
+      // connectTimeout: 30,
       entities: [
         Employee,
         Customer,
@@ -52,6 +54,7 @@ import { Reminder } from './typeorm/reminder.entities';
     BookingModule,
     RoomModule,
     RoomtypeModule,
+    PaymentModule,
   ],
   controllers: [],
   providers: [],

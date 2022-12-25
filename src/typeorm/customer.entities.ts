@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Booking } from './booking.entities';
 
 @Entity()
 export class Customer {
@@ -19,4 +20,7 @@ export class Customer {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: number;
+
+  @ManyToOne(() => Booking, (booking) => booking.customer)
+  booking: Booking;
 }

@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { Booking } from 'src/typeorm/booking.entities';
 
 export class CustomerDto {
   @IsNotEmpty()
@@ -12,4 +13,6 @@ export class CustomerDto {
 
   @IsNotEmpty()
   gender: string;
+
+  booking: Booking;
 }

@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Room } from './room.entities';
 
 @Entity()
 export class roomType {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
@@ -16,4 +17,7 @@ export class roomType {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: number;
+
+  @ManyToOne(() => Room, (room) => room.roomType)
+  room: Room;
 }

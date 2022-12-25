@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { Room } from 'src/typeorm/room.entities';
 
 export class roomTypeDto {
   @IsNotEmpty()
@@ -9,4 +10,6 @@ export class roomTypeDto {
 
   @IsNotEmpty()
   cost: number;
+
+  room: Room;
 }

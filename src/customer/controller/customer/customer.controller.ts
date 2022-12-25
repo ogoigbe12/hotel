@@ -17,12 +17,21 @@ import { CustomerService } from 'src/customer/service/customer/customer.service'
 @Controller('customer')
 export class CustomerController {
   constructor(private customerService: CustomerService) {}
-  @Post('create')
+  @Post(':id/booking')
   @UsePipes(new ValidationPipe())
-  async newCustomer(@Body() customerData: CustomerDto) {
-    const customer = await this.customerService.createCustomer(customerData);
+  async newCustomer(
+    @Body() customerData: CustomerDto,
+    @Param('id') id: number,
+  ) {
+    const customer = await this.customerService.createCustomer(
+      id,
+      customerData,
+    );
     if (customer) return { msg: 'customer created' };
-    return new HttpException('customer already exits', HttpStatus.BAD_REQUEST);
+    return new HttpException(
+      'sorry cannot perform action',
+      HttpStatus.BAD_REQUEST,
+    );
   }
   @Patch(':id')
   async customerUpdate(

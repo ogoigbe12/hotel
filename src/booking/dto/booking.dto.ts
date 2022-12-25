@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { orderCreate } from 'src/typeorm/order.entities';
 
 export class bookingDto {
   @IsNotEmpty()
@@ -7,6 +8,7 @@ export class bookingDto {
   @IsNotEmpty()
   checkIn: string;
 
-  @IsNotEmpty()
   checkOut: string;
+
+  order: orderCreate;
 }
